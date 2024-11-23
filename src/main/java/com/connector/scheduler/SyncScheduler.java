@@ -1,5 +1,6 @@
 package com.connector.scheduler;
 
+import com.connector.repository.IFactoryRepository;
 import com.connector.service.ApiService;
 
 import io.quarkus.scheduler.Scheduled;
@@ -13,6 +14,9 @@ public class SyncScheduler {
 	@Inject
 	ApiService service;
 
+	@Inject
+	IFactoryRepository factoryRepository;
+
 	@Scheduled(
 		concurrentExecution = ConcurrentExecution.SKIP,
 		every = "24h",
@@ -20,12 +24,14 @@ public class SyncScheduler {
 	)
 	public void syncronizeAllMachines() {
 		log.info("Starting - Getting Machines from the Production System");
-		try {
-			this.service.syncronizeAllMachines();
-			log.info( "Complete - Getting Machines from the Production System");
-		} catch (Exception e) {
-			log.errorv("Error while getting Machines from de Production System");
-		}
+		this.factoryRepository.listAllActiveFactories().forEach( factory -> {
+			try {
+				this.service.syncronizeAllMachines(factory);
+				log.infov( "Complete - Getting Machines from the Factory {0}", factory.getId());
+			} catch (Exception e) {
+				log.errorv("Error while getting Machines from the Factory {0}", factory.getId());
+			}
+		});
 	}
 
 	@Scheduled(

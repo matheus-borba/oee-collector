@@ -2,9 +2,12 @@ package com.connector.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,4 +46,8 @@ public class Machine implements Serializable {
 	
 	@Column(name = "oee_percentage")
 	private Double oeePercentage;
+
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name="factory_id", referencedColumnName = "id")
+	private Factory factory;
 }
