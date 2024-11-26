@@ -1,5 +1,10 @@
 package com.connector.scheduler;
 
+import java.util.List;
+
+import com.connector.model.Factory;
+import com.connector.redis.GetCacheFactory;
+import com.connector.redis.SetCacheFactory;
 import com.connector.repository.IFactoryRepository;
 import com.connector.service.ApiService;
 
@@ -17,6 +22,12 @@ public class SyncScheduler {
 	@Inject
 	IFactoryRepository factoryRepository;
 
+	@Inject
+	GetCacheFactory getCacheFactory;
+
+	@Inject
+	SetCacheFactory setCacheFactory;
+
 	@Scheduled(
 		concurrentExecution = ConcurrentExecution.SKIP,
 		every = "24h",
@@ -24,7 +35,13 @@ public class SyncScheduler {
 	)
 	public void syncronizeAllMachines() {
 		log.info("Starting - Getting Machines from the Production System");
-		this.factoryRepository.listAllActiveFactories().forEach( factory -> {
+		List<Factory> factories = this.getCacheFactory.execute(null);
+		if(factories.isEmpty()) {
+			log.info( "Complete - There're any factory to sync");
+			factories = this.factoryRepository.listAllActiveFactories();
+			this.setCacheFactory.execute(factories);
+		}
+		factories.forEach( factory -> {
 			try {
 				this.service.syncronizeAllMachines(factory);
 				log.infov( "Complete - Getting Machines from the Factory {0}", factory.getId());
