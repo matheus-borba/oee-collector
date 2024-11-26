@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.connector.dto.FactoryDTO;
 import com.connector.model.Factory;
+import com.connector.redis.SetCacheFactory;
 import com.connector.repository.IFactoryRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,10 +29,14 @@ public class FactoryAPI {
 	@Inject
 	IFactoryRepository factoryRepository;
 
+	@Inject
+	SetCacheFactory setCacheFactory;
+
 	@POST
 	public Response createFactory(FactoryDTO factory) {
 		try {
 			factoryRepository.save(factory);
+			this.setCache();
 			return Response.status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST)
@@ -55,5 +60,10 @@ public class FactoryAPI {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao processar JSON").build();
 		}
+	}
+
+	private void setCache() {
+		List<Factory> factories = this.factoryRepository.listAllActiveFactories();
+		this.setCacheFactory.execute(factories);
 	}
 }
