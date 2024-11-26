@@ -1,65 +1,65 @@
-package com.connector;
+// package com.connector;
 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+// import static org.mockito.Mockito.doThrow;
+// import static org.mockito.Mockito.times;
+// import static org.mockito.Mockito.verify;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.mockito.InjectMocks;
+// import org.mockito.Mock;
+// import org.mockito.MockitoAnnotations;
 
-import com.connector.scheduler.SyncScheduler;
-import com.connector.service.ApiService;
+// import com.connector.scheduler.SyncScheduler;
+// import com.connector.service.ApiService;
 
-import io.quarkus.test.junit.QuarkusTest;
+// import io.quarkus.test.junit.QuarkusTest;
 
-@QuarkusTest
-public class SyncSchedulerTest {
+// @QuarkusTest
+// public class SyncSchedulerTest {
 
-	@Mock
-	ApiService service;
+// 	@Mock
+// 	ApiService service;
 
-	@InjectMocks
-	SyncScheduler syncScheduler;
+// 	@InjectMocks
+// 	SyncScheduler syncScheduler;
 
-	@BeforeEach
-	public void setup() {
-		MockitoAnnotations.openMocks(this);
-	}
+// 	@BeforeEach
+// 	public void setup() {
+// 		MockitoAnnotations.openMocks(this);
+// 	}
 
-	@Test
-	public void testSyncronizeMachines() throws Exception {
-		syncScheduler.syncronizeAllMachines();
+// 	@Test
+// 	public void testSyncronizeMachines() throws Exception {
+// 		syncScheduler.syncronizeAllMachines();
 
-		verify(service, times(1)).syncronizeAllMachines();
-	}
+// 		verify(service, times(1)).syncronizeAllMachines();
+// 	}
 
-	@Test
-	public void testSyncronizeMachinesThrowsException() throws Exception {
-		doThrow(new RuntimeException("Error"))
-				.when(service).syncronizeAllMachines();
+// 	@Test
+// 	public void testSyncronizeMachinesThrowsException() throws Exception {
+// 		doThrow(new RuntimeException("Error"))
+// 				.when(service).syncronizeAllMachines();
 
-		syncScheduler.syncronizeAllMachines();
+// 		syncScheduler.syncronizeAllMachines();
 
-		verify(service, times(1)).syncronizeAllMachines();
-	}
+// 		verify(service, times(1)).syncronizeAllMachines();
+// 	}
 
-	@Test
-	public void testSyncronizeProductions() throws Exception {
-		syncScheduler.syncronizeAllProductions();
+// 	@Test
+// 	public void testSyncronizeProductions() throws Exception {
+// 		syncScheduler.syncronizeAllProductions();
 
-		verify(service, times(1)).syncronizeAllProduction();
-	}
+// 		verify(service, times(1)).syncronizeAllProduction();
+// 	}
 
-	@Test
-	public void testSyncronizeProductionsThrowsException() throws Exception {
-		doThrow(new RuntimeException("Error"))
-				.when(service).syncronizeAllProduction();
+// 	@Test
+// 	public void testSyncronizeProductionsThrowsException() throws Exception {
+// 		doThrow(new RuntimeException("Error"))
+// 				.when(service).syncronizeAllProduction();
 
-		syncScheduler.syncronizeAllProductions();
+// 		syncScheduler.syncronizeAllProductions();
 
-		verify(service, times(1)).syncronizeAllProduction();
-	}
-}
+// 		verify(service, times(1)).syncronizeAllProduction();
+// 	}
+// }

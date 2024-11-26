@@ -3,8 +3,8 @@ package com.connector.dto;
 import java.io.Serializable;
 
 import com.connector.model.Machine;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,29 +16,24 @@ import lombok.NoArgsConstructor;
 @Builder(setterPrefix = "with")
 public class MachineDTO implements Serializable {
 
-	@JsonProperty("id")
+	@JsonbProperty("id")
 	private Integer id;
-
-	@JsonProperty("name")
+	@JsonbProperty("name")
 	private String name;
-
-	@JsonProperty("type")
+	@JsonbProperty("type")
 	private String type;
-
-	@JsonProperty("productionCapacity")
+	@JsonbProperty("productionCapacity")
 	private Integer productionCapacity;
-
-	@JsonProperty("plannedProductionTime")
+	@JsonbProperty("plannedProductionTime")
 	private Integer plannedProductionTime;
-
-	@JsonProperty("location")
+	@JsonbProperty("location")
 	private String location;
-
-	@JsonProperty("status")
+	@JsonbProperty("status")
 	private String status;
-
-	@JsonProperty("oeePercentage")
+	@JsonbProperty("oeePercentage")
 	private Double oeePercentage;
+	@JsonbProperty("factoryId")
+	private Integer factoryId;
 
 	public Machine toEntity() {
 		return Machine.builder()
@@ -63,6 +58,7 @@ public class MachineDTO implements Serializable {
 			.withLocation(entity.getLocation())
 			.withStatus(entity.getStatus())
 			.withOeePercentage(entity.getOeePercentage())
+			.withFactoryId(entity.getFactory().getId())
 			.build();
 	}
 }

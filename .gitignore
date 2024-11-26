@@ -1,0 +1,21 @@
+# Ignore arquivos compilados
+*.class
+*.o
+*.exe
+
+# Ignore arquivos de log
+*.log
+
+# Ignore pastas específicas
+/target/
+/bin/
+
+# Ignore arquivos de configuração do sistema
+.DS_Store
+Thumbs.db
+*.swp
+
+# Ignore credenciais
+.env
+*.key
+*.pem

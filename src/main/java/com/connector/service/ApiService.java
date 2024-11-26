@@ -6,6 +6,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import com.connector.dto.MachineDTO;
 import com.connector.dto.ProductionDTO;
+import com.connector.model.Factory;
 import com.connector.repository.IMachineRepository;
 import com.connector.repository.IProductionRepository;
 import com.connector.restclient.IServiceClient;
@@ -28,11 +29,12 @@ public class ApiService {
 	@Inject
 	IProductionRepository productionRepository;
 
-	public void syncronizeAllMachines() throws Exception {
+	public void syncronizeAllMachines(Factory factory) throws Exception {
 		try {
 			log.info("Starting - Getting Machines");
 			List<MachineDTO> machines = this.client.getAllMachines("feebcda0");
 			machines.forEach(machine -> {
+				machine.setFactoryId(factory.getId());
 				this.machineRepository.save(machine);
 			});
 			log.info("Complete - Getting machines");
