@@ -6,7 +6,8 @@ import com.connector.dto.MachineDTO;
 import com.connector.dto.ProductionDTO;
 import com.connector.model.Machine;
 import com.connector.model.Production;
-import com.connector.repository.IMachineRepository;
+import com.connector.rabbitmq.SaveMachineProducer;
+import com.connector.rabbitmq.SaveProductionProducer;
 import com.connector.repository.IProductionRepository;
 import com.connector.utils.OEECalculator;
 
@@ -19,13 +20,19 @@ import lombok.extern.jbosslog.JBossLog;
 public class OEECalculationService {
 
 	private final IProductionRepository productionRepository;
-	private final IMachineRepository machineRepository;
+	private final SaveProductionProducer productionProducer;
+	private final SaveMachineProducer machineProducer;
 	private final OEECalculator oeeCalculator;
 
 	@Inject
-	public OEECalculationService(IProductionRepository productionRepository, IMachineRepository machineRepository, OEECalculator oeeCalculator) {
+	public OEECalculationService(
+			IProductionRepository productionRepository,
+			SaveProductionProducer productionProducer,
+			SaveMachineProducer machineProducer,
+			OEECalculator oeeCalculator) {
 		this.productionRepository = productionRepository;
-		this.machineRepository = machineRepository;
+		this.productionProducer = productionProducer;
+		this.machineProducer = machineProducer;
 		this.oeeCalculator = oeeCalculator;
 	}
 
@@ -41,7 +48,7 @@ public class OEECalculationService {
 
 		ProductionDTO dto = ProductionDTO.fromEntity(production);
 		dto.setOeePercentage(oeeFinal);
-		productionRepository.save(dto);
+		productionProducer.publish(dto);
 	}
 
 	public void calculateOEEMachine(Machine machine) throws Exception {
@@ -59,6 +66,6 @@ public class OEECalculationService {
 
 		MachineDTO dto = MachineDTO.fromEntity(machine);
 		dto.setOeePercentage(averageOeeFinal);
-		machineRepository.save(dto);
+		machineProducer.publish(dto);
 	}
 }

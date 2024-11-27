@@ -12,5 +12,22 @@ services:
       POSTGRES_DB: oee_collector
     volumes:
           - data-oee-collector:/var/lib/postgresql/data/
+
+  rabbitmq:
+    image: rabbitmq:3.11.6-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      ERL_EPMD_PORT: 4369
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq/
+      - rabbitmq-log:/var/log/rabbitmq/
+
 volumes:
   data-oee-collector:
+  rabbitmq-data:
+  rabbitmq-log:
