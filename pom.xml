@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-client-reactive-jsonb</artifactId>
+            <artifactId>quarkus-rest-client-jsonb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -105,6 +105,10 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.11.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-messaging-rabbitmq</artifactId>
         </dependency>
     </dependencies>
 
