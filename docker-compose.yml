@@ -27,6 +27,12 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq/
       - rabbitmq-log:/var/log/rabbitmq/
 
+  redis:
+    image: redis
+    container_name: redis-server
+    ports:
+      - "6380:6379"
+
 volumes:
   data-oee-collector:
   rabbitmq-data:
