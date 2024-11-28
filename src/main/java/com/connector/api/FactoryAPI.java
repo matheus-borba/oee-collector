@@ -2,6 +2,9 @@ package com.connector.api;
 
 import java.util.List;
 
+import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 
 import com.connector.dto.FactoryDTO;
@@ -11,6 +14,7 @@ import com.connector.restclient.ServerFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -27,6 +31,9 @@ import lombok.extern.jbosslog.JBossLog;
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
 @RegisterProvider(ServerFilter.class)
+@RolesAllowed("ADMIN")
+@SecurityScheme(securitySchemeName = "Basic Auth", type = SecuritySchemeType.HTTP, scheme = "basic")
+@SecurityRequirement(name = "Basic Auth")
 public class FactoryAPI {
 
 	@Inject
