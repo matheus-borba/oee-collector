@@ -32,7 +32,8 @@ public class ApiService {
 	public void syncronizeAllMachines(Factory factory) throws Exception {
 		try {
 			log.info("Starting - Getting Machines");
-			List<MachineDTO> machines = this.client.getAllMachines("feebcda0");
+			String originAction = "GET_MACHINES-" + factory.getId(); 
+			List<MachineDTO> machines = this.client.getAllMachines("feebcda0", originAction);
 			machines.forEach(machine -> {
 				machine.setFactoryId(factory.getId());
 				this.machineProducer.publish(machine);
@@ -43,10 +44,11 @@ public class ApiService {
 		}
 	}
 
-	public void syncronizeAllProduction() throws Exception {
+	public void syncronizeAllProduction(Factory factory) throws Exception {
 		try {
 			log.info("Starting - Getting Prodution");
-			List<ProductionDTO> productions = this.client.getAllProductions("feebcda0");
+			String originAction = "GET_PRODUCTIONS-" + factory.getId(); 
+			List<ProductionDTO> productions = this.client.getAllProductions("feebcda0", originAction);
 			productions.forEach(production -> {
 				this.productionProducer.publish(production);;
 			});

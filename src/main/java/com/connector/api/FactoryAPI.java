@@ -2,9 +2,12 @@ package com.connector.api;
 
 import java.util.List;
 
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
+
 import com.connector.dto.FactoryDTO;
 import com.connector.model.Factory;
 import com.connector.repository.IFactoryRepository;
+import com.connector.restclient.ServerFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,6 +26,7 @@ import lombok.extern.jbosslog.JBossLog;
 @Path("/api/factory")
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
+@RegisterProvider(ServerFilter.class)
 public class FactoryAPI {
 
 	@Inject
