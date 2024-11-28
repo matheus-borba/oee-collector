@@ -10,6 +10,7 @@ import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import com.connector.dto.FactoryDTO;
 import com.connector.model.Factory;
 import com.connector.repository.IFactoryRepository;
+import com.connector.redis.SetCacheFactory;
 import com.connector.restclient.ServerFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,10 +40,14 @@ public class FactoryAPI {
 	@Inject
 	IFactoryRepository factoryRepository;
 
+	@Inject
+	SetCacheFactory setCacheFactory;
+
 	@POST
 	public Response createFactory(FactoryDTO factory) {
 		try {
 			factoryRepository.save(factory);
+			setCacheFactory.execute();
 			return Response.status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST)
