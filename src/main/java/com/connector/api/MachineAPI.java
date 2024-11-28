@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
+
 import com.connector.dto.MachineDTO;
 import com.connector.model.Machine;
 import com.connector.repository.IMachineRepository;
+import com.connector.restclient.ServerFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,6 +26,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/api/machine")
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
+@RegisterProvider(ServerFilter.class)
 public class MachineAPI {
 
 	@Inject

@@ -42,11 +42,13 @@ public class SyncScheduler {
 	)
 	public void syncronizeAllProductions() {
 		log.info( "Starting - Getting Machines from the Production System");
-		try {
-			this.service.syncronizeAllProduction();
-			log.info( "Complete - Getting Machines from the Production System");
-		} catch (Exception e) {
-			log.errorv("Error while getting Machines from de Production System");
-		}
+		this.factoryRepository.listAllActiveFactories().forEach(factory -> {
+			try {
+				this.service.syncronizeAllProduction(factory);
+				log.info( "Complete - Getting Productions from the Production System");
+			} catch (Exception e) {
+				log.errorv("Error while getting Productions from de Production System");
+			}
+		});
 	}
 }
