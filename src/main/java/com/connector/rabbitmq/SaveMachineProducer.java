@@ -20,6 +20,7 @@ public class SaveMachineProducer {
 	@OnOverflow(value = OnOverflow.Strategy.BUFFER, bufferSize = 10000)
 	Emitter<MachineDTO> statusRequestEmitter;
 
+	//Método onde é realizado o envio das maquinas ao RABBITMQ na fila "send-machines"
 	public void publish(MachineDTO machineDTO) {
 		try {
 			this.statusRequestEmitter.send(Message.of(machineDTO));

@@ -52,6 +52,7 @@ public class ServerFilter implements ContainerRequestFilter, ContainerResponseFi
 	@Inject
 	ManagedExecutor managedExecutor;
 
+	//Provider que executa ao realizar uma requisição ao sistema através dos endopoints - Salva os dados na tabela de auditoria
 	public void auditRequestResponse(RequestDTO request, ResponseDTO response) {
 	   AuditionRequestResponse audition = AuditionRequestResponse.builder()
 				.withRequest(request)

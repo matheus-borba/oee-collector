@@ -9,6 +9,7 @@ import io.quarkus.scheduler.Scheduled.ConcurrentExecution;
 import jakarta.inject.Inject;
 import lombok.extern.jbosslog.JBossLog;
 
+//Timers que buscam as produções e maquinas para calcular sua OEE
 @JBossLog
 public class OeeCalculatorScheduler {
 

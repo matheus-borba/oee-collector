@@ -4,6 +4,7 @@ import java.math.RoundingMode;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
+//Classe onde é realizado os calculos de OEE
 @ApplicationScoped
 public class OEECalculator {
 
