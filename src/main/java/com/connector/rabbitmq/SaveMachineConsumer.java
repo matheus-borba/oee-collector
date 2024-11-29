@@ -22,7 +22,7 @@ public class SaveMachineConsumer {
 
 	@Inject
 	IMachineRepository machineRepository;
-
+	// Aqui é onde os dados das maquinas são recebidos do rabbitMQ e tratados de forma assíncrona
 	@Incoming("receive-machines")
 	@Blocking
 	public CompletionStage<Void> processMessage(Message<JsonObject> message) {

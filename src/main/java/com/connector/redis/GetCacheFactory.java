@@ -22,6 +22,7 @@ public class GetCacheFactory {
 		redis = ds.value(String.class);
 	}
 
+	//Método que busca as fabricas ativas no cache do Redis
 	public List<Factory> execute() {
 		String json = redis.get(ALL_ACTIVE_FACTORIES);
 		if ( Objects.isNull(json)) {

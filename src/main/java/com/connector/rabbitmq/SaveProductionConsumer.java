@@ -22,7 +22,7 @@ public class SaveProductionConsumer {
 
 	@Inject
 	IProductionRepository productionRepository;
-
+	// Aqui é onde os dados das produções são recebidos do rabbitMQ e tratados de forma assíncrona
 	@Incoming("receive-productions")
 	@Blocking
 	public CompletionStage<Void> processMessage(Message<JsonObject> message) {

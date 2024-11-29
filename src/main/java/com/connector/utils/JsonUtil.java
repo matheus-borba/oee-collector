@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.json.bind.Jsonb;
 
+//Classe com métodos de apoio na tratativa de json
 public class JsonUtil {
 
 	private static final Jsonb jsonb = CDI.current().select( Jsonb.class ).get();

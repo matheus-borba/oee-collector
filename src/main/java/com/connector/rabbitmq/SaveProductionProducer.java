@@ -20,6 +20,7 @@ public class SaveProductionProducer {
 	@OnOverflow(value = OnOverflow.Strategy.BUFFER, bufferSize = 10000)
 	Emitter<ProductionDTO> statusRequestEmitter;
 
+	//Método onde é realizado o envio das produções ao RABBITMQ pela fila "send-production"
 	public void publish(ProductionDTO productionDTO) {
 		try {
 			this.statusRequestEmitter.send(Message.of(productionDTO));

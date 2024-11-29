@@ -9,6 +9,7 @@ import io.quarkus.scheduler.Scheduled.ConcurrentExecution;
 import jakarta.inject.Inject;
 import lombok.extern.jbosslog.JBossLog;
 
+// Classe responsável por realizar a busca automatica pelas maquinas e produções das fabricas
 @JBossLog
 public class SyncScheduler {
 

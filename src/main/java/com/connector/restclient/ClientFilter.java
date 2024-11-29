@@ -57,6 +57,7 @@ public class ClientFilter implements ClientRequestFilter, ClientResponseFilter {
 	@Inject
 	ManagedExecutor managedExecutor;
 
+	//Provider que executa ao realizar uma requisição a API MOCK - Salva os dados na tabela de auditoria
 	@Override
 	public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext) throws IOException {
 		try {

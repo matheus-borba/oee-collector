@@ -36,6 +36,7 @@ public class OEECalculationService {
 		this.oeeCalculator = oeeCalculator;
 	}
 
+	//Calcula a OEE de cada produção
 	public void calculateOEE(Production production) throws Exception {
 		Machine machine = production.getMachine();
 		

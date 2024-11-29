@@ -24,6 +24,7 @@ public class SetCacheFactory {
 		redis = ds.value(String.class);
 	}
 
+	//Método que armazena as fabricas ativas no cache do Redis
 	public void execute() {
 		List<Factory> factories = this.factoryRepository.listAllActiveFactories();
 		String json = JsonUtil.toJson(factories);

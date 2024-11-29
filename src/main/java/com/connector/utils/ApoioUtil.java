@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 
+//Classe com métodos de apoio
 public class ApoioUtil {
 
 	public static boolean isEmpty(Object obj) {
